@@ -4,8 +4,9 @@ class Jogo{
     private int vidaM=10;
     private Personagem jogador;
     private boolean fugir;
+    private boolean parar;
     private Random chance;
-    private ArrayList<Inimigo> monstros;
+    private ArrayList<Inimigo> monstros=new ArrayList<>();
     private Inimigo monstroRodada;
     private int quantRodada=0;
     public Jogo(String nome){
@@ -71,15 +72,28 @@ class Jogo{
     public int getVidaJ(){
         return jogador.getVida();
     }
+    public String getNomeJ() {
+        return jogador.getNome();
+    }
+    public String getNomeM(){
+        return monstroRodada.getNome();
+    }
     public int getVidaM(){
-        return vidaM;
+        return monstroRodada.getVida();
+    }
+    public void paraJogo(){
+        parar=true;
+    }
+    public int getQuantRodada(){
+        return quantRodada;
     }
     public boolean continua(){
-        if((vidaM>1)&&(fugir==false)){
+        if((vidaM>1)&&(parar==false)){
             return true;
         }
         else{
             return false;
         }
     }
+    
 }
