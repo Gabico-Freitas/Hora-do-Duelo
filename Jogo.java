@@ -69,6 +69,12 @@ class Jogo{
     public boolean getFugir(){
         return fugir;
     }
+    public void setFugir(){
+        this.fugir=false;
+    }
+    public boolean getParar(){
+        return parar;
+    }
     public int getVidaJ(){
         return jogador.getVida();
     }
