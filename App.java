@@ -9,7 +9,7 @@ class App{
         int monstrosDerrotados=0;
         while (game.continua()) {
             System.out.println("Oh não, um "+game.getNomeM()+" apareceu" );
-            while (game.getVidaM()>1 || game.getFugir()==true) {
+            while (game.getVidaM()>1 && game.getFugir()==false && game.getParar()==false) {
                 menuOpções();
                 int escolha=teclado.nextInt();
                 switch (escolha) {
@@ -27,8 +27,13 @@ class App{
                         break;
                 }
             }
-            if(game.getVidaM()<1){
-                monstrosDerrotados++;
+            if(game.getFugir()==true){
+                game.setFugir();
+            }
+            else{
+                if(game.getParar()==false){
+                    monstrosDerrotados++;
+                }
             }
             game.rodada();
             
