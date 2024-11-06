@@ -20,7 +20,7 @@ class Jogo{
     public Jogo() {
     }
     public void rodada(){
-        monstroRodada=monstros.get(chance.nextInt(2));
+        monstroRodada=monstros.get(chance.nextInt(3));
         quantRodada++;
     }
     // public void status(){
