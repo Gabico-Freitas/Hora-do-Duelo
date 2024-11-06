@@ -7,7 +7,7 @@ class App{
         game=new Jogo(teclado.nextLine());
         game.rodada();
         int monstrosDerrotados=0;
-        while (game.continua()) {
+        while (game.getParar()==false && game.getVidaJ()>1) {
             System.out.println("Oh não, um "+game.getNomeM()+" apareceu" );
             while (game.getVidaM()>1 && game.getFugir()==false && game.getParar()==false) {
                 menuOpções();
@@ -33,12 +33,14 @@ class App{
             else{
                 if(game.getParar()==false){
                     monstrosDerrotados++;
+                    System.out.println("Monstro Derrotado!");
                 }
             }
+            System.out.println("Total de monstros derrotados: "+monstrosDerrotados+"\nRodada: "+game.getQuantRodada());
             game.rodada();
             
         }
-        System.out.println("Você durou "+game.getQuantRodada()+" e derrotou "+monstrosDerrotados+" monstros");
+        System.out.println("Você durou "+(game.getQuantRodada()-1)+" e derrotou "+monstrosDerrotados+" monstros");
         
         teclado.close();
     }
