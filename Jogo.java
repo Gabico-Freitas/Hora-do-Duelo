@@ -16,6 +16,9 @@ class Jogo{
         this.monstros.add(new Inimigo("Morcego", 5));
         this.monstros.add(new Inimigo("Lobo", 10));
     }
+
+    public Jogo() {
+    }
     public void rodada(){
         monstroRodada=monstros.get(chance.nextInt(2));
         quantRodada++;
@@ -93,13 +96,13 @@ class Jogo{
     public int getQuantRodada(){
         return quantRodada;
     }
-    public boolean continua(){
-        if((vidaM>1)&&(parar==false)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    // public boolean continua(){
+    //     if((vidaM>1)&&(parar==false)){
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    // }
     
 }
