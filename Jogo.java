@@ -10,7 +10,7 @@ class Jogo{
     private Inimigo monstroRodada;
     private int quantRodada;
     public Jogo(String nome){
-        this.jogador=new Personagem(nome, 5);
+        this.jogador=new Personagem(nome, 50);
         reset();
     }
     public void rodada(){
