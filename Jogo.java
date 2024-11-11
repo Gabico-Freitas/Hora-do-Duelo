@@ -12,21 +12,15 @@ class Jogo{
     public Jogo(String nome){
         this.jogador=new Personagem(nome, 50);
         this.chance = new Random();
-        this.monstros.add(new Inimigo("Ogro", 20));
-        this.monstros.add(new Inimigo("Morcego", 5));
-        this.monstros.add(new Inimigo("Lobo", 10));
-    }
-
-    public Jogo() {
+        this.monstros.add(new Inimigo("Ogro", 20, ""));
+        this.monstros.add(new Inimigo("Morcego", 5,""));
+        this.monstros.add(new Inimigo("Lobo", 10, ""));
     }
     public void rodada(){
         monstroRodada=monstros.get(chance.nextInt(3));
+        monstroRodada.reset();
         quantRodada++;
     }
-    // public void status(){
-    //     System.out.println("JOGADOR\nVida: "+vidaJogador);
-    //     System.out.println("MONSTRO\nVida: "+vidaM);
-    // }
     public boolean critico(){
         int critico=chance.nextInt(9);
         if(critico==0){return true;}else{return false;}
@@ -34,7 +28,6 @@ class Jogo{
     public void atacar(){
         int acerto=chance.nextInt(9);
         if(acerto<3){
-            //System.out.println("Você errou!");
             if(critico()){
                 jogador.reduzVida(3);
                 //System.out.println("Dano CRÍTICO");
@@ -69,6 +62,9 @@ class Jogo{
         }
         return fugir;
     }
+    public void setNome(String nomeNovo){
+        jogador.setNome(nomeNovo);
+    }
     public boolean getFugir(){
         return fugir;
     }
@@ -87,6 +83,9 @@ class Jogo{
     public String getNomeM(){
         return monstroRodada.getNome();
     }
+    public String getCorpoM(){
+        return monstroRodada.getCorpo();
+    }
     public int getVidaM(){
         return monstroRodada.getVida();
     }
@@ -96,13 +95,13 @@ class Jogo{
     public int getQuantRodada(){
         return quantRodada;
     }
-    // public boolean continua(){
-    //     if((vidaM>1)&&(parar==false)){
-    //         return true;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-    // }
+    public boolean continua(){
+        if((vidaM>1)&&(parar==false)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
 }
