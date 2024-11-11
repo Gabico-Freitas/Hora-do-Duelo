@@ -8,13 +8,10 @@ class Jogo{
     private Random chance;
     private ArrayList<Inimigo> monstros=new ArrayList<>();
     private Inimigo monstroRodada;
-    private int quantRodada=0;
+    private int quantRodada;
     public Jogo(String nome){
-        this.jogador=new Personagem(nome, 50);
-        this.chance = new Random();
-        this.monstros.add(new Inimigo("Ogro", 20, ""));
-        this.monstros.add(new Inimigo("Morcego", 5,""));
-        this.monstros.add(new Inimigo("Lobo", 10, ""));
+        this.jogador=new Personagem(nome, 5);
+        reset();
     }
     public void rodada(){
         monstroRodada=monstros.get(chance.nextInt(3));
@@ -94,6 +91,14 @@ class Jogo{
     }
     public int getQuantRodada(){
         return quantRodada;
+    }
+    public void reset(){
+        this.jogador=new Personagem(jogador.getNome(), 5);
+        this.quantRodada=0;
+        this.chance = new Random();
+        this.monstros.add(new Inimigo("Ogro", 20, ""));
+        this.monstros.add(new Inimigo("Morcego", 5,""));
+        this.monstros.add(new Inimigo("Lobo", 10, ""));
     }
     public boolean continua(){
         if((vidaM>1)&&(parar==false)){
