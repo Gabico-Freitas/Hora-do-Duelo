@@ -7,21 +7,25 @@ public class JogoInterface {
 
     private JFrame janelaPrincipal;
     private Jogo j=new Jogo(null);
-    private int monstrosDerrotados=0;
+    private int monstrosDerrotados=0, recordeMonstros=0, recordeRodadas=0;
 
     public static void main(String[] args) {
         
-        new JogoInterface().mostrarJanelaEntrada();
+        JogoInterface jI=new JogoInterface();
+        jI.mostrarJanelaEntrada();
     }
 
-    // Janela do nome
+    // Janela do menu
     private void mostrarJanelaEntrada() {
-        JFrame janelaEntrada = new JFrame("Nome do Jogador");
-        janelaEntrada.setSize(300, 100);
+        JFrame janelaEntrada = new JFrame("Hora do Duelo");
+        janelaEntrada.setSize(300, 250);
         janelaEntrada.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janelaEntrada.setLayout(new FlowLayout());
+        janelaEntrada.setLayout(new BoxLayout(janelaEntrada.getContentPane(), BoxLayout.PAGE_AXIS));
 
-        JLabel label = new JLabel("Digite seu nome:");
+        JLabel label = new JLabel("Pronto pra começar uma aventura?");
+        JLabel label2 = new JLabel("Digite seu nome:");
+        JLabel recordRod = new JLabel("Rodadas sobrevividas: "+recordeRodadas);
+        JLabel recordMons = new JLabel("Monstros derrotados: "+recordeMonstros);
         JTextField campoNome = new JTextField(15);
         JButton botaoConfirmar = new JButton("Confirmar");
 
@@ -36,10 +40,15 @@ public class JogoInterface {
                 }
             }
         });
-
+        JPanel teste=new JPanel();
+        teste.setLayout(new FlowLayout());
+        teste.add(campoNome);
         janelaEntrada.add(label);
-        janelaEntrada.add(campoNome);
+        janelaEntrada.add(label2);
+        janelaEntrada.add(teste);
         janelaEntrada.add(botaoConfirmar);
+        janelaEntrada.add(recordMons);
+        janelaEntrada.add(recordRod);
         janelaEntrada.setLocationRelativeTo(null); // Centraliza a janela
         janelaEntrada.setVisible(true);
     }
@@ -56,14 +65,16 @@ public class JogoInterface {
         j.rodada();
         JLabel labelJogador = new JLabel(j.getNomeJ());
         JLabel labelVidaJogador = new JLabel("Vida do Jogador: " + j.getVidaJ());
+        JLabel labelCorpoJogador = new JLabel("j.getCorpoJ()");
+        
         JLabel labelMonstro = new JLabel(j.getNomeM());
-        //JLabel labeCorpoMonstro = new JLabel(j.getCorpoM());
+        JLabel labeCorpoMonstro = new JLabel("j.getCorpoM()");
         JLabel labelVidaMonstro = new JLabel("Vida do Monstro: " + j.getVidaM());
 
         painelInfo.add(labelJogador);
         painelInfo.add(labelMonstro);
-        //  painelInfo.add(labeCorpoMonstro);
-        //  painelInfo.add(labelCorpoJogador);
+        painelInfo.add(labelCorpoJogador);
+        painelInfo.add(labeCorpoMonstro);
         painelInfo.add(labelVidaJogador);
         painelInfo.add(labelVidaMonstro);
 
@@ -99,15 +110,30 @@ public class JogoInterface {
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
                 labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
             }
-            
 
         });
-        botaoParar.addActionListener(e -> JOptionPane.showMessageDialog(janelaPrincipal, "Você durou por "+j.getQuantRodada()+" rodadas e derrotou "+monstrosDerrotados+" monstros!"));
-
+        botaoParar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(janelaPrincipal, "Você durou por "+j.getQuantRodada()+" rodadas e derrotou "+monstrosDerrotados+" monstros!");
+                recordeMonstros=monstrosDerrotados;
+                recordeRodadas=j.getQuantRodada();
+                j.reset();
+                janelaPrincipal.setVisible(false);
+                janelaPrincipal.dispose();
+                mostrarJanelaEntrada();
+            }
+        }
+        );
+        new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(j.getVidaJ()<1){
+                    botaoParar.doClick();
+                }
+            }
+        };
         painelBotoes.add(botaoAtacar);
         painelBotoes.add(botaoFugir);
         painelBotoes.add(botaoParar);
-
         janelaPrincipal.add(painelInfo, BorderLayout.CENTER);
         janelaPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
