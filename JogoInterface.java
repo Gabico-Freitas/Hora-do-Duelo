@@ -19,7 +19,7 @@ public class JogoInterface {
     // Janela do menu
     private void mostrarJanelaEntrada() {
         JFrame janelaEntrada = new JFrame("Hora do Duelo");
-        janelaEntrada.setSize(350, 165);
+        janelaEntrada.setSize(450, 165);
         janelaEntrada.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janelaEntrada.setLayout(new BoxLayout(janelaEntrada.getContentPane(), BoxLayout.Y_AXIS));
 
