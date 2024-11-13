@@ -93,7 +93,7 @@ class Jogo{
         return quantRodada;
     }
     public void reset(){
-        this.jogador=new Personagem(jogador.getNome(), 5);
+        this.jogador=new Personagem(jogador.getNome(), 50);
         this.quantRodada=0;
         this.chance = new Random();
         this.monstros.add(new Inimigo("Ogro", 20, ""));
