@@ -95,10 +95,15 @@ public class JogoInterface {
         JButton botaoFugir = new JButton("Fugir");
         JButton botaoParar = new JButton("Parar");
 
+        JTextArea historico=new JTextArea();
+
         botaoAtacar.addActionListener(e -> {
             j.atacar();
+            int vidaAnteriorMonstro=j.getVidaM();
+            int vidaAnteriorJogador=j.getVidaJ();
             labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
+            
             if (j.getVidaM() <= 0) {
                 JOptionPane.showMessageDialog(janelaPrincipal, "Você derrotou o monstro!");
                 monstrosDerrotados++;
