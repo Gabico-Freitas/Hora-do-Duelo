@@ -68,13 +68,13 @@ public class JogoInterface {
         JLabel labelCorpoJogador = new JLabel("j.getCorpoJ()");
         
         JLabel labelMonstro = new JLabel(j.getNomeM());
-        JLabel labeCorpoMonstro = new JLabel("j.getCorpoM()");
+        JLabel labelCorpoMonstro = new JLabel("j.getCorpoM()");
         JLabel labelVidaMonstro = new JLabel("Vida do Monstro: " + j.getVidaM());
 
         painelInfo.add(labelJogador);
         painelInfo.add(labelMonstro);
         painelInfo.add(labelCorpoJogador);
-        painelInfo.add(labeCorpoMonstro);
+        painelInfo.add(labelCorpoMonstro);
         painelInfo.add(labelVidaJogador);
         painelInfo.add(labelVidaMonstro);
 
