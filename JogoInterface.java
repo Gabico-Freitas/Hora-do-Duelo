@@ -8,6 +8,7 @@ public class JogoInterface {
     private JFrame janelaPrincipal;
     private Jogo j=new Jogo(null);
     private int monstrosDerrotados=0, recordeMonstros=0, recordeRodadas=0;
+    private int maiorQuantRod=0,maiorQauntMonst=0;
 
     public static void main(String[] args) {
         
@@ -18,14 +19,14 @@ public class JogoInterface {
     // Janela do menu
     private void mostrarJanelaEntrada() {
         JFrame janelaEntrada = new JFrame("Hora do Duelo");
-        janelaEntrada.setSize(300, 250);
+        janelaEntrada.setSize(350, 165);
         janelaEntrada.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janelaEntrada.setLayout(new BoxLayout(janelaEntrada.getContentPane(), BoxLayout.PAGE_AXIS));
+        janelaEntrada.setLayout(new BoxLayout(janelaEntrada.getContentPane(), BoxLayout.Y_AXIS));
 
         JLabel label = new JLabel("Pronto pra começar uma aventura?");
         JLabel label2 = new JLabel("Digite seu nome:");
-        JLabel recordRod = new JLabel("Rodadas sobrevividas: "+recordeRodadas);
-        JLabel recordMons = new JLabel("Monstros derrotados: "+recordeMonstros);
+        // JLabel recordRod = new JLabel("Rodadas sobrevividas: "+recordeRodadas);
+        // JLabel recordMons = new JLabel("Monstros derrotados: "+recordeMonstros);
         JTextField campoNome = new JTextField(15);
         JButton botaoConfirmar = new JButton("Confirmar");
 
@@ -40,15 +41,25 @@ public class JogoInterface {
                 }
             }
         });
-        JPanel teste=new JPanel();
-        teste.setLayout(new FlowLayout());
-        teste.add(campoNome);
+        String[] colunas = {"", "Última tentativa","Melhor Tentativa"};
+        String[][] dados = {{"Rodadas sobrevividas", String.valueOf(recordeRodadas),String.valueOf(maiorQuantRod)},
+                            {"Monstros derrotados", String.valueOf(recordeMonstros),String.valueOf(maiorQauntMonst)}};
+        JTable tabela = new JTable(dados, colunas);
+        tabela.setFillsViewportHeight(true); // Para preencher o painel
+        JScrollPane scrollPane = new JScrollPane(tabela); // Adiciona o JScrollPane para a tabela com rolagem
+
+        JPanel nomeTextFieldBotao=new JPanel();
+        nomeTextFieldBotao.setLayout(new FlowLayout());
+        nomeTextFieldBotao.add(campoNome);
+        nomeTextFieldBotao.add(botaoConfirmar);
+        nomeTextFieldBotao.setAlignmentX(Component.CENTER_ALIGNMENT);
         janelaEntrada.add(label);
         janelaEntrada.add(label2);
-        janelaEntrada.add(teste);
-        janelaEntrada.add(botaoConfirmar);
-        janelaEntrada.add(recordMons);
-        janelaEntrada.add(recordRod);
+        janelaEntrada.add(nomeTextFieldBotao);
+        //janelaEntrada.add(botaoConfirmar);
+        janelaEntrada.add(scrollPane);
+        // janelaEntrada.add(recordMons);
+        // janelaEntrada.add(recordRod);
         janelaEntrada.setLocationRelativeTo(null); // Centraliza a janela
         janelaEntrada.setVisible(true);
     }
@@ -95,6 +106,9 @@ public class JogoInterface {
                 labelMonstro.setText(j.getNomeM());
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             }
+            if(j.getVidaJ()<1){
+                botaoParar.doClick();
+            }
         });
 
         botaoFugir.addActionListener(e -> {
@@ -104,6 +118,9 @@ public class JogoInterface {
                 j.rodada();
                 labelMonstro.setText(j.getNomeM());
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
+                if(j.getVidaJ()<1){
+                    botaoParar.doClick();
+                }
             }
             else{
                 labelMonstro.setText(j.getNomeM());
@@ -114,9 +131,20 @@ public class JogoInterface {
         });
         botaoParar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(janelaPrincipal, "Você durou por "+j.getQuantRodada()+" rodadas e derrotou "+monstrosDerrotados+" monstros!");
+                if(j.getVidaJ()<1){
+                    JOptionPane.showMessageDialog(janelaPrincipal, "                   VOCÊ MORREU!\n Aguentou "+j.getQuantRodada()+" rodadas e derrotou "+monstrosDerrotados+" monstros!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(janelaPrincipal, "Você durou por "+j.getQuantRodada()+" rodadas e derrotou "+monstrosDerrotados+" monstros!");
+                }
                 recordeMonstros=monstrosDerrotados;
                 recordeRodadas=j.getQuantRodada();
+                if(monstrosDerrotados>maiorQauntMonst){
+                    maiorQauntMonst=monstrosDerrotados;
+                }
+                if(j.getQuantRodada()>maiorQuantRod){
+                    maiorQuantRod=j.getQuantRodada();
+                }
                 j.reset();
                 janelaPrincipal.setVisible(false);
                 janelaPrincipal.dispose();
