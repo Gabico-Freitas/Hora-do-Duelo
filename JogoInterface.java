@@ -103,7 +103,7 @@ public class JogoInterface {
         botaoAtacar.addActionListener(e -> {
             j.atacar();
             labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
-            labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
+            labelVidaJogador.setText("   Vida do Jogador: " + j.getVidaJ());
             if(j.getCritico()){
                 historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
             }
@@ -137,7 +137,7 @@ public class JogoInterface {
             else{
                 labelMonstro.setText(j.getNomeM());
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
-                labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
+                labelVidaJogador.setText("   Vida do Jogador: " + j.getVidaJ());
                 if(j.getCritico()){
 
                     historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
