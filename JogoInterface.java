@@ -76,7 +76,8 @@ public class JogoInterface {
         j.rodada();
         JLabel labelJogador = new JLabel("   "+j.getNomeJ());
         JLabel labelVidaJogador = new JLabel("   Vida do Jogador: " + j.getVidaJ());
-        JLabel labelCorpoJogador = new JLabel("j.getCorpoJ()");
+        JLabel labelCorpoJogador = new JLabel();
+        labelCorpoJogador.setIcon(new ImageIcon(j.getCorpoJ()));
         
         JLabel labelMonstro = new JLabel(j.getNomeM());
         JLabel labelCorpoMonstro = new JLabel();
@@ -103,7 +104,12 @@ public class JogoInterface {
             j.atacar();
             labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
-            historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+" de dano em "+j.getAtacado()+"\n");
+            if(j.getCritico()){
+                historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
+            }
+            else{
+                historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+" de dano em "+j.getAtacado()+"\n");
+            }
             if (j.getVidaM() <= 0) {
                 JOptionPane.showMessageDialog(janelaPrincipal, "Você derrotou o monstro!");
                 monstrosDerrotados++;
@@ -132,7 +138,14 @@ public class JogoInterface {
                 labelMonstro.setText(j.getNomeM());
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
                 labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
-                historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+" de dano em "+j.getNomeJ()+"\n");
+                if(j.getCritico()){
+
+                    historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
+                }
+                else{
+                    historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+" de dano em "+j.getNomeJ()+"\n");
+                }
+                
                 if(j.getVidaJ()<1){
                     botaoParar.doClick();
                 }
@@ -164,7 +177,7 @@ public class JogoInterface {
         }
         );
         JScrollPane painelHistorico = new JScrollPane(historico);
-        painelHistorico.setBounds(60, 310, 240, 170);
+        painelHistorico.setBounds(60, 310, 250, 170);
         painelBotoes.add(botaoAtacar);
         painelBotoes.add(botaoFugir);
         painelBotoes.add(botaoParar);
