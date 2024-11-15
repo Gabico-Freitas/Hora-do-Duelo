@@ -8,9 +8,10 @@ class Jogo{
     private Random chance;
     private ArrayList<Inimigo> monstros=new ArrayList<>();
     private Inimigo monstroRodada;
-    private int quantRodada;
+    private int quantRodada, danoRodada;
+    private String atacante,atacado;
     public Jogo(String nome){
-        this.jogador=new Personagem(nome, 50);
+        this.jogador=new Personagem(nome, 50,1);
         reset();
     }
     public void rodada(){
@@ -26,22 +27,39 @@ class Jogo{
         int acerto=chance.nextInt(9);
         if(acerto<3){
             if(critico()){
-                jogador.reduzVida(3);
+                jogador.reduzVida(monstroRodada.dano()*3);
                 //System.out.println("Dano CRÍTICO");
+                danoRodada=monstroRodada.dano()*3;
             }
             else{
-                jogador.reduzVida(1);
+                jogador.reduzVida(monstroRodada.dano());
+                danoRodada=monstroRodada.dano();
             }
+            atacante=monstroRodada.getNome();
+            atacado=jogador.getNome();
         }
         else{
             if(critico()){
-                monstroRodada.reduzVida(3);
+                monstroRodada.reduzVida(jogador.dano()*3);
                 //System.out.println("Dano CRÍTICO");
+                danoRodada=jogador.dano()*3;
             }
             else{
-                monstroRodada.reduzVida(1);
+                monstroRodada.reduzVida(jogador.dano());
+                danoRodada=jogador.dano();
             }
+            atacante=jogador.getNome();
+            atacado=monstroRodada.getNome();
         }
+    }
+    public String getAtacado() {
+        return atacado;
+    }
+    public String getAtacante() {
+        return atacante;
+    }
+    public int getDanoRodada() {
+        return danoRodada;
     }
     public boolean fuga(){
         int fuga=chance.nextInt(9);
@@ -50,11 +68,13 @@ class Jogo{
         }else{
             fugir= false;
             if(critico()){
-                jogador.reduzVida(3);
+                jogador.reduzVida(monstroRodada.dano()*3);
                 //System.out.println("Dano CRÍTICO");
+                danoRodada=monstroRodada.dano()*3;
             }
             else{
-                jogador.reduzVida(1);
+                jogador.reduzVida(monstroRodada.dano());
+                danoRodada=monstroRodada.dano();
             }
         }
         return fugir;
@@ -93,12 +113,12 @@ class Jogo{
         return quantRodada;
     }
     public void reset(){
-        this.jogador=new Personagem(jogador.getNome(), 50);
+        this.jogador=new Personagem(jogador.getNome(), 50,1);
         this.quantRodada=0;
         this.chance = new Random();
-        this.monstros.add(new Inimigo("Ogro", 20, ""));
-        this.monstros.add(new Inimigo("Morcego", 5,""));
-        this.monstros.add(new Inimigo("Lobo", 10, ""));
+        this.monstros.add(new Inimigo("Ogro", 20, "PROCURAR IMAGEM",3));
+        this.monstros.add(new Inimigo("Morcego", 5,"PROCURAR IMAGEM",1));
+        this.monstros.add(new Inimigo("Lobo", 10, "PROCURAR IMAGEM",2));
     }
     public boolean continua(){
         if((vidaM>1)&&(parar==false)){
