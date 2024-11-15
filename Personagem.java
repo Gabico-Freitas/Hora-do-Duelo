@@ -2,10 +2,12 @@ class Personagem{
     private String nome;
     private int vidaAtual;
     private int vidaTotal;
-    public Personagem(String nomePersonagem, int vida){
+    private int dano;
+    public Personagem(String nomePersonagem, int vida, int dano){
         this.nome=nomePersonagem;
         this.vidaTotal=vida;
         this.vidaAtual=vida;
+        this.dano=dano;
     }
     public void reset(){
         this.vidaAtual=vidaTotal;
@@ -21,5 +23,8 @@ class Personagem{
     }
     public int getVida(){
         return vidaAtual;
+    }
+    public int dano(){
+        return dano;
     }
 }
