@@ -79,7 +79,8 @@ public class JogoInterface {
         JLabel labelCorpoJogador = new JLabel("j.getCorpoJ()");
         
         JLabel labelMonstro = new JLabel(j.getNomeM());
-        JLabel labelCorpoMonstro = new JLabel("j.getCorpoM()");
+        JLabel labelCorpoMonstro = new JLabel();
+        labelCorpoMonstro.setIcon(new ImageIcon(j.getCorpoM()));
         JLabel labelVidaMonstro = new JLabel("Vida do Monstro: " + j.getVidaM());
 
         painelInfo.add(labelJogador);
@@ -96,19 +97,20 @@ public class JogoInterface {
         JButton botaoParar = new JButton("Parar");
 
         JTextArea historico=new JTextArea();
+        historico.setEditable(false);
 
         botaoAtacar.addActionListener(e -> {
             j.atacar();
-            int vidaAnteriorMonstro=j.getVidaM();
-            int vidaAnteriorJogador=j.getVidaJ();
             labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
-            
+            historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+" de dano em "+j.getAtacado()+"\n");
             if (j.getVidaM() <= 0) {
                 JOptionPane.showMessageDialog(janelaPrincipal, "Você derrotou o monstro!");
                 monstrosDerrotados++;
                 j.rodada();
                 labelMonstro.setText(j.getNomeM());
+                ImageIcon novoMonstro=new ImageIcon(j.getCorpoM());
+                labelCorpoMonstro.setIcon(novoMonstro);
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             }
             if(j.getVidaJ()<1){
@@ -122,15 +124,18 @@ public class JogoInterface {
                 JOptionPane.showMessageDialog(janelaPrincipal, "Você fugiu do combate!");
                 j.rodada();
                 labelMonstro.setText(j.getNomeM());
+                ImageIcon novoMonstro=new ImageIcon(j.getCorpoM());
+                labelCorpoMonstro.setIcon(novoMonstro);
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
-                if(j.getVidaJ()<1){
-                    botaoParar.doClick();
-                }
             }
             else{
                 labelMonstro.setText(j.getNomeM());
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
                 labelVidaJogador.setText("Vida do Jogador: " + j.getVidaJ());
+                historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+" de dano em "+j.getNomeJ()+"\n");
+                if(j.getVidaJ()<1){
+                    botaoParar.doClick();
+                }
             }
 
         });
@@ -151,23 +156,20 @@ public class JogoInterface {
                     maiorQuantRod=j.getQuantRodada();
                 }
                 j.reset();
+                monstrosDerrotados=0;
                 janelaPrincipal.setVisible(false);
                 janelaPrincipal.dispose();
                 mostrarJanelaEntrada();
             }
         }
         );
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(j.getVidaJ()<1){
-                    botaoParar.doClick();
-                }
-            }
-        };
+        JScrollPane painelHistorico = new JScrollPane(historico);
+        painelHistorico.setBounds(70, 542, 200, 89);
         painelBotoes.add(botaoAtacar);
         painelBotoes.add(botaoFugir);
         painelBotoes.add(botaoParar);
-        janelaPrincipal.add(painelInfo, BorderLayout.CENTER);
+        janelaPrincipal.add(painelInfo, BorderLayout.NORTH);
+        janelaPrincipal.add(painelHistorico,BorderLayout.SOUTH);
         janelaPrincipal.add(painelBotoes, BorderLayout.SOUTH);
 
         janelaPrincipal.setLocationRelativeTo(null); // Centraliza a janela
