@@ -67,15 +67,15 @@ public class JogoInterface {
     // Janela principal
     private void mostrarJanelaPrincipal() {
         janelaPrincipal = new JFrame("Jogo - Hora do Duelo!");
-        janelaPrincipal.setSize(500, 700);
+        janelaPrincipal.setSize(390, 570);
         janelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janelaPrincipal.setLayout(new BorderLayout());
 
         JPanel painelInfo = new JPanel();
         painelInfo.setLayout(new GridLayout(3, 2));
         j.rodada();
-        JLabel labelJogador = new JLabel(j.getNomeJ());
-        JLabel labelVidaJogador = new JLabel("Vida do Jogador: " + j.getVidaJ());
+        JLabel labelJogador = new JLabel("   "+j.getNomeJ());
+        JLabel labelVidaJogador = new JLabel("   Vida do Jogador: " + j.getVidaJ());
         JLabel labelCorpoJogador = new JLabel("j.getCorpoJ()");
         
         JLabel labelMonstro = new JLabel(j.getNomeM());
@@ -164,10 +164,11 @@ public class JogoInterface {
         }
         );
         JScrollPane painelHistorico = new JScrollPane(historico);
-        painelHistorico.setBounds(70, 542, 200, 89);
+        painelHistorico.setBounds(60, 310, 240, 170);
         painelBotoes.add(botaoAtacar);
         painelBotoes.add(botaoFugir);
         painelBotoes.add(botaoParar);
+        painelInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         janelaPrincipal.add(painelInfo, BorderLayout.NORTH);
         janelaPrincipal.add(painelHistorico,BorderLayout.SOUTH);
         janelaPrincipal.add(painelBotoes, BorderLayout.SOUTH);
