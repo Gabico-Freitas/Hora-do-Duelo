@@ -1,7 +1,8 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 class Jogo{
-    private int vidaM=10;
+    private boolean crit;
     private Personagem jogador;
     private boolean fugir;
     private boolean parar;
@@ -21,7 +22,16 @@ class Jogo{
     }
     public boolean critico(){
         int critico=chance.nextInt(9);
-        if(critico==0){return true;}else{return false;}
+        if(critico==0){
+            crit=true;
+            return crit;
+        }else{
+            crit=false;
+            return crit;
+        }
+    }
+    public boolean getCritico(){
+        return crit;
     }
     public void atacar(){
         int acerto=chance.nextInt(9);
@@ -103,6 +113,9 @@ class Jogo{
     public String getCorpoM(){
         return monstroRodada.getCorpo();
     }
+    public String getCorpoJ() {
+        return new File("jogador100.png").getAbsolutePath();
+    }
     public int getVidaM(){
         return monstroRodada.getVida();
     }
@@ -116,17 +129,18 @@ class Jogo{
         this.jogador=new Personagem(jogador.getNome(), 50,1);
         this.quantRodada=0;
         this.chance = new Random();
-        this.monstros.add(new Inimigo("Ogro", 20, "PROCURAR IMAGEM",3));
-        this.monstros.add(new Inimigo("Morcego", 5,"PROCURAR IMAGEM",1));
-        this.monstros.add(new Inimigo("Lobo", 10, "PROCURAR IMAGEM",2));
+        this.monstros.add(new Inimigo("Ogro", 20, new File("orc100.png").getAbsolutePath(),3));
+        this.monstros.add(new Inimigo("Morcego", 5,new File("bat100.png").getAbsolutePath(),1));
+        this.monstros.add(new Inimigo("Lobo", 10, new File("wolf100.png").getAbsolutePath(),2));
     }
     public boolean continua(){
-        if((vidaM>1)&&(parar==false)){
+        if((getVidaM()>1)&&(parar==false)){
             return true;
         }
         else{
             return false;
         }
     }
+    
     
 }
