@@ -25,8 +25,6 @@ public class JogoInterface {
 
         JLabel label = new JLabel("Pronto pra começar uma aventura?");
         JLabel label2 = new JLabel("Digite seu nome:");
-        // JLabel recordRod = new JLabel("Rodadas sobrevividas: "+recordeRodadas);
-        // JLabel recordMons = new JLabel("Monstros derrotados: "+recordeMonstros);
         JTextField campoNome = new JTextField(15);
         JButton botaoConfirmar = new JButton("Confirmar");
 
@@ -56,10 +54,7 @@ public class JogoInterface {
         janelaEntrada.add(label);
         janelaEntrada.add(label2);
         janelaEntrada.add(nomeTextFieldBotao);
-        //janelaEntrada.add(botaoConfirmar);
         janelaEntrada.add(scrollPane);
-        // janelaEntrada.add(recordMons);
-        // janelaEntrada.add(recordRod);
         janelaEntrada.setLocationRelativeTo(null); // Centraliza a janela
         janelaEntrada.setVisible(true);
     }
@@ -139,7 +134,6 @@ public class JogoInterface {
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
                 labelVidaJogador.setText("   Vida do Jogador: " + j.getVidaJ());
                 if(j.getCritico()){
-
                     historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
                 }
                 else{
