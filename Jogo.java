@@ -20,7 +20,7 @@ class Jogo{
         monstroRodada.reset();
         quantRodada++;
     }
-    public boolean critico(){
+    private boolean critico(){
         int critico=chance.nextInt(9);
         if(critico==0){
             crit=true;
