@@ -100,7 +100,7 @@ public class JogoInterface {
             labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
             labelVidaJogador.setText("   Vida do Jogador: " + j.getVidaJ());
             if(j.getCritico()){
-                historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
+                historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getAtacado()+"\n");
             }
             else{
                 historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+" de dano em "+j.getAtacado()+"\n");
@@ -134,10 +134,10 @@ public class JogoInterface {
                 labelVidaMonstro.setText("Vida do Monstro: " + j.getVidaM());
                 labelVidaJogador.setText("   Vida do Jogador: " + j.getVidaJ());
                 if(j.getCritico()){
-                    historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getNomeJ()+"\n");
+                    historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+"[CRÍTICO] de dano em "+j.getAtacado()+"\n");
                 }
                 else{
-                    historico.append(j.getNomeM()+" deu "+j.getDanoRodada()+" de dano em "+j.getNomeJ()+"\n");
+                    historico.append(j.getAtacante()+" deu "+j.getDanoRodada()+" de dano em "+j.getAtacado()+"\n");
                 }
                 
                 if(j.getVidaJ()<1){
